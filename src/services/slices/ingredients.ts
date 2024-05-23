@@ -1,31 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TIngredient } from '@utils-types';
 import { getIngredients } from '../thunk/ingredients';
+import { INGREDIENTS_SLICE_NAME } from '../../utils/constants';
 
 type ingredientsState = {
-  buns: TIngredient[];
-  mains: TIngredient[];
-  sauces: TIngredient[];
+  ingredients: TIngredient[];
   isLoading: boolean;
   error: string | null;
 };
 
 const initialState: ingredientsState = {
-  buns: [],
-  mains: [],
-  sauces: [],
+  ingredients: [],
   isLoading: false,
   error: null
 };
 
 const ingredientSlice = createSlice({
-  name: 'ingredients',
+  name: INGREDIENTS_SLICE_NAME,
   initialState,
   reducers: {},
   selectors: {
-    getBunsSelector: (state) => state.buns,
-    getMainsSelector: (state) => state.mains,
-    getSaucesSelector: (state) => state.sauces,
+    getIngredientsSelector: (state) => state.ingredients,
     getIngredientLoading: (state) => state.isLoading
   },
   extraReducers: (builder) => {
@@ -37,11 +32,7 @@ const ingredientSlice = createSlice({
       .addCase(getIngredients.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        action.payload.forEach((item) => {
-          if (item.type === 'bun') state.buns.push(item);
-          if (item.type === 'sauce') state.sauces.push(item);
-          if (item.type === 'main') state.mains.push(item);
-        });
+        state.ingredients = action.payload;
       })
       .addCase(getIngredients.rejected, (state, action) => {
         state.isLoading = false;
@@ -50,10 +41,6 @@ const ingredientSlice = createSlice({
   }
 });
 
-export const {
-  getBunsSelector,
-  getMainsSelector,
-  getSaucesSelector,
-  getIngredientLoading
-} = ingredientSlice.selectors;
+export const { getIngredientsSelector, getIngredientLoading } =
+  ingredientSlice.selectors;
 export const reducer = ingredientSlice.reducer;
