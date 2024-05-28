@@ -1,3 +1,8 @@
+import { Route, Routes } from 'react-router-dom';
+import '../../index.css';
+import styles from './app.module.css';
+
+import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import {
   ConstructorPage,
   Feed,
@@ -8,72 +13,60 @@ import {
   ProfileOrders,
   Register,
   ResetPassword
-} from '@pages';
-import '../../index.css';
-import styles from './app.module.css';
-
-import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
-import { Outlet, Route, Routes } from 'react-router-dom';
+} from '../../pages';
 
 const App = () => (
   <>
-    <Routes>
-      <Route
-        path='/'
-        element={
-          <div className={styles.app}>
-            <AppHeader />
-            <Outlet />
-          </div>
-        }
-      >
-        <Route index element={<ConstructorPage />} />
-        <Route path='feed' element={<Feed />} />
-        <Route path='login' element={<Login />} />
-        <Route path='register' element={<Register />} />
-        <Route path='forgot-password' element={<ForgotPassword />} />
-        <Route path='reset-password' element={<ResetPassword />} />
-        <Route path='profile' element={<Profile />} />
-        <Route path='profile/orders' element={<ProfileOrders />} />
+    <div className={styles.app}>
+      <AppHeader />
+      <Routes>
+        <Route path='/' element={<ConstructorPage />} />
+        <Route path='/feed' element={<Feed />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path='/reset-password' element={<ResetPassword />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/profile/orders' element={<ProfileOrders />} />
         <Route path='*' element={<NotFound404 />} />
-      </Route>
-    </Routes>
+      </Routes>
 
-    <Routes>
-      <Route
-        path='/feed/:number'
-        element={
-          <Modal
-            title='Информация о заказе'
-            onClose={() => console.log('Click close')}
-          >
-            <OrderInfo />
-          </Modal>
-        }
-      />
-      <Route
-        path='/ingredients/:id'
-        element={
-          <Modal
-            title='Информация о заказе'
-            onClose={() => console.log('Click close')}
-          >
-            <IngredientDetails />
-          </Modal>
-        }
-      />
-      <Route
-        path='/profile/orders/:number'
-        element={
-          <Modal
-            title='Информация о заказе'
-            onClose={() => console.log('Click close')}
-          >
-            <OrderInfo />
-          </Modal>
-        }
-      />
-    </Routes>
+      <Routes>
+        <Route
+          path='/feed/:number'
+          element={
+            <Modal
+              title='Информация о заказе'
+              onClose={() => console.log('Click close')}
+            >
+              <OrderInfo />
+            </Modal>
+          }
+        />
+        <Route
+          path='/ingredients/:id'
+          element={
+            <Modal
+              title='Информация о заказе'
+              onClose={() => console.log('Click close')}
+            >
+              <IngredientDetails />
+            </Modal>
+          }
+        />
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <Modal
+              title='Информация о заказе'
+              onClose={() => console.log('Click close')}
+            >
+              <OrderInfo />
+            </Modal>
+          }
+        />
+      </Routes>
+    </div>
   </>
 );
 
