@@ -71,9 +71,10 @@ const userSlice = createSlice({
       });
   },
   selectors: {
-    getUser: (state) => state.user,
-    getStatus: (state) => state.requestStatus
+    getUserSelector: (state) => state.user,
+    getStatusSelector: (state) => state.requestStatus
   }
 });
 
 export const reducer = userSlice.reducer;
+export const { getUserSelector, getStatusSelector } = userSlice.selectors;
