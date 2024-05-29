@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
+  TLoginData,
   TRegisterData,
   forgotPasswordApi,
   getUserApi,
@@ -26,18 +27,18 @@ export const registerUser = createAsyncThunk(
   `${USER_SLICE_NAME}/registerUser`,
   async (data: TRegisterData) => {
     const payload = await registerUserApi(data);
+    localStorage.setItem('refreshToken', payload.refreshToken);
     setCookie('accessToken', payload.accessToken);
-    setCookie('refreshToken', payload.refreshToken);
     return payload.user;
   }
 );
 
 export const loginUser = createAsyncThunk(
   `${USER_SLICE_NAME}/loginUser`,
-  async (data: TRegisterData) => {
+  async (data: TLoginData) => {
     const payload = await loginUserApi(data);
+    localStorage.setItem('refreshToken', payload.refreshToken);
     setCookie('accessToken', payload.accessToken);
-    setCookie('refreshToken', payload.refreshToken);
     return payload.user;
   }
 );
@@ -48,8 +49,7 @@ export const logoutUser = createAsyncThunk(
     const success = await logoutApi();
     if (success) {
       setCookie('accessToken', '');
-      setCookie('refreshToken', '');
-      localStorage.clear(); // Под вопросом
+      localStorage.clear();
     }
   }
 );

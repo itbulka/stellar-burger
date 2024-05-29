@@ -1,7 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RequestStatus, TUser } from '@utils-types';
 import { USER_SLICE_NAME } from '../../utils/constants';
-import { getUser, loginUser, registerUser, updateUser } from '../thunk/user';
+import {
+  getUser,
+  loginUser,
+  logoutUser,
+  registerUser,
+  updateUser
+} from '../thunk/user';
 
 type TUserState = {
   isAuthChecked: boolean;
@@ -67,6 +73,16 @@ const userSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state) => {
         state.user = null;
+        state.requestStatus = RequestStatus.Failed;
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.user = null;
+        state.requestStatus = RequestStatus.Success;
+      })
+      .addCase(logoutUser.pending, (state) => {
+        state.requestStatus = RequestStatus.Loading;
+      })
+      .addCase(logoutUser.rejected, (state) => {
         state.requestStatus = RequestStatus.Failed;
       });
   },

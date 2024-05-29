@@ -22,10 +22,6 @@ export const Register: FC = () => {
     );
   };
 
-  useEffect(() => {
-    if (status === RequestStatus.Success) navigate('/', { replace: true });
-  }, [status]);
-
   return (
     <RegisterUI
       errorText=''

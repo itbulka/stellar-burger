@@ -31,6 +31,7 @@ export const ProtectedRoute = ({
   }
 
   if (!onlyUnAuth && !user) {
+    console.log(`Location -> ${location}`);
     return (
       <Navigate
         replace
