@@ -44,7 +44,6 @@ const userSlice = createSlice({
         state.requestStatus = RequestStatus.Success;
       })
       .addCase(updateUser.pending, (state) => {
-        state.user = null;
         state.requestStatus = RequestStatus.Loading;
       })
       .addCase(updateUser.rejected, (state) => {
