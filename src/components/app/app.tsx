@@ -3,6 +3,7 @@ import '../../index.css';
 import styles from './app.module.css';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
+import { useEffect } from 'react';
 import {
   ConstructorPage,
   Feed,
@@ -14,10 +15,17 @@ import {
   Register,
   ResetPassword
 } from '../../pages';
+import { useDispatch } from '../../services/store';
+import { getUser } from '../../services/thunk/user';
 import { ProtectedRoute } from '../protected-route';
 
 const App = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, []);
 
   const backgroundLocation = location.state?.background;
 
