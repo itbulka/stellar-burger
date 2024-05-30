@@ -15,6 +15,7 @@ import {
   Register,
   ResetPassword
 } from '../../pages';
+import { authCheck } from '../../services/slices/user';
 import { useDispatch } from '../../services/store';
 import { getUser } from '../../services/thunk/user';
 import { ProtectedRoute } from '../protected-route';
@@ -24,8 +25,8 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUser());
-  }, []);
+    dispatch(getUser()).finally(() => dispatch(authCheck()));
+  }, [dispatch, authCheck]);
 
   const backgroundLocation = location.state?.background;
 

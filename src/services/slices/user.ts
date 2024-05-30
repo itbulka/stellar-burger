@@ -24,7 +24,11 @@ const initialState: TUserState = {
 const userSlice = createSlice({
   name: USER_SLICE_NAME,
   initialState,
-  reducers: {},
+  reducers: {
+    authCheck: (state) => {
+      state.isAuthChecked = true;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getUser.fulfilled, (state, action) => {
@@ -95,3 +99,4 @@ const userSlice = createSlice({
 export const reducer = userSlice.reducer;
 export const { getUserSelector, getStatusSelector, getAuthCheckedSelector } =
   userSlice.selectors;
+export const { authCheck } = userSlice.actions;

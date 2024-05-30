@@ -21,7 +21,7 @@ export const ProtectedRoute = ({
   const location = useLocation();
 
   if (!isAuthChecked) {
-    <Preloader />;
+    return <Preloader />;
   }
 
   if (onlyUnAuth && user) {
