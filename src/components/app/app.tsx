@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import '../../index.css';
 import styles from './app.module.css';
 
@@ -23,6 +23,7 @@ import { ProtectedRoute } from '../protected-route';
 const App = () => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getUser()).finally(() => dispatch(authCheck()));
@@ -86,10 +87,7 @@ const App = () => {
             <Route
               path='/feed/:number'
               element={
-                <Modal
-                  title='Информация о заказе'
-                  onClose={() => console.log('Click close')}
-                >
+                <Modal title='Информация о заказе' onClose={() => navigate(-1)}>
                   <OrderInfo />
                 </Modal>
               }
@@ -97,10 +95,7 @@ const App = () => {
             <Route
               path='/ingredients/:id'
               element={
-                <Modal
-                  title='Информация о заказе'
-                  onClose={() => console.log('Click close')}
-                >
+                <Modal title='Информация о заказе' onClose={() => navigate(-1)}>
                   <IngredientDetails />
                 </Modal>
               }
@@ -108,10 +103,7 @@ const App = () => {
             <Route
               path='/profile/orders/:number'
               element={
-                <Modal
-                  title='Информация о заказе'
-                  onClose={() => console.log('Click close')}
-                >
+                <Modal title='Информация о заказе' onClose={() => navigate(-1)}>
                   <OrderInfo />
                 </Modal>
               }
