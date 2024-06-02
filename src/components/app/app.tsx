@@ -17,6 +17,7 @@ import {
 } from '../../pages';
 import { authCheck } from '../../services/slices/user';
 import { useDispatch } from '../../services/store';
+import { getIngredients } from '../../services/thunk/ingredients';
 import { getUser } from '../../services/thunk/user';
 import { ProtectedRoute } from '../protected-route';
 
@@ -27,6 +28,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getUser()).finally(() => dispatch(authCheck()));
+    dispatch(getIngredients());
   }, [dispatch, authCheck]);
 
   const backgroundLocation = location.state?.background;
@@ -72,6 +74,8 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route path='/feed/:number' element={<OrderInfo />} />
+          <Route path='/ingredients/:id' element={<IngredientDetails />} />
           <Route path='*' element={<NotFound404 />} />
         </Routes>
 
